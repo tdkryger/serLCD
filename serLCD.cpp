@@ -163,7 +163,6 @@ void serLCD::setCursor(int row, int col)
 	};
 	if ((row > 0 && row <= _numlines) && (col > 0 && col <= _numchars))
 	{
-		Serial.println(((col - 1) + row_offsets[_rowoffset][(row - 1)]));
 		command(LCD_SETDDRAMADDR | ((col - 1) + row_offsets[_rowoffset][(row - 1)]));
 	}
 }
