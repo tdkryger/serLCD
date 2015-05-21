@@ -1,23 +1,32 @@
 /*
  serLCD.h - Library for controlling a SparkFun serLCD module
-	    Code written for firmware version 2.5
+		Code written for firmware version 2.5
 
  Created by Cody B. Null, September 9, 2011
  Modified by Jordan Hochenbaum, Dec 5, 2011. (Version 1.5)
+ Modified by Johan Korten, March 23, 2013. (Version 1.6)
+ Modified by Thomas D. Kryger, May 21, 2015 (Version 1.7)
 
  Version 1.4 - This version wrote specifically for 16x2
-               Display.
-               More display support coming in later version.
- 
+			   Display.
+			   More display support coming in later version.
+
  Version 1.5 - Since mid 2011 the Arduino IDE has implemented the NewSoftSerial 
-               library updates in the standard SoftwareSerial library and so 
-               using NewSoftSerial is no longer needed. serLCD has been updated 
-               to use the Standard SoftwareSerial library. Also, Arduino 1.0
-               support has been added. Backwards compatible with previous versions.
+			   library updates in the standard SoftwareSerial library and so 
+			   using NewSoftSerial is no longer needed. serLCD has been updated 
+			   to use the Standard SoftwareSerial library. Also, Arduino 1.0
+			   support has been added. Backwards compatible with previous versions.
+
+ Version 1.6 - Added support for the setType special command.
+				This will help using different LCD's (2x16, 2x20, 4x16, 4x20).  
+			  Added support for scrollLeft and scrollRight commands.
+
+Version 1.7 - Fixed bugs for 20x4 displays. Not tested on other displays
+			  Changed constructor to allow setting of display size
 
  Note -	This library requires NewSoftSerial library
-        The latest version of NewSoftSerial library can 
-        always be found at http://arduiniana.org. -> NO LONGER NECESSARY. See 1.5 notes above.-Jordan Hochenbaum
+		The latest version of NewSoftSerial library can 
+		always be found at http://arduiniana.org. -> NO LONGER NECESSARY. See 1.5 notes above.-Jordan Hochenbaum
 */
 #ifndef serLCD_h
 #define serLCD_h
@@ -66,14 +75,17 @@
 
 class serLCD : public SoftwareSerial {
 public:
-	serLCD (int pin);
-
+	serLCD(int pin, int rows, int cols);
+	
 	void clear();
 	void clearLine(int);
 	void home();
 	void setBrightness(int);
 
 	void setSplash();
+	void setType(int);  // new in 1.6
+	void scrollLeft();  // new in 1.6
+	void scrollRight(); // new in 1.6
 	void toggleSplash();
 
 	void blink();
@@ -84,7 +96,7 @@ public:
 	void noDisplay();
 
 	void setCursor(int, int);
-	void selectLine(int);
+	//void selectLine(int);
 
 	void leftToRight();
 	void rightToLeft();
