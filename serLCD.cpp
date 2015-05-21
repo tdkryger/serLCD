@@ -154,7 +154,7 @@ void serLCD::noDisplay()
 }
 
 // Set cursor to specific row and col values start at 1 not 0
-void serLCD::setCursor(int row, int col)
+void serLCD::setCursor(int col, int row)
 {
 	int row_offsets[2][4] = 
 	{
