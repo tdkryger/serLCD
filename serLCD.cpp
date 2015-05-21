@@ -70,9 +70,9 @@ void serLCD::clearLine(int num)
 {
 	if (num > 0 && num <= _numlines)
 	{
-		setCursor(num, 1);
+		setCursor(1, num);
 		print("                ");
-		setCursor(num, 1);
+		setCursor(1, num);
 	}
 }
 
